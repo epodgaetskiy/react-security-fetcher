@@ -1,5 +1,5 @@
 {
-  "name": "react-security",
+  "name": "react-security-fetcher",
   "version": "0.0.1",
   "description": "React+Redux Authorization&Fetcher",
   "main": "lib/index.js",
@@ -22,12 +22,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aleksdp/react-security.git"
+    "url": "git+https://github.com/aleksdp/react-security-fetcher.git"
   },
   "author": "aleksdp",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aleksdp/react-security/issues"
+    "url": "https://github.com/aleksdp/react-security-fetcher/issues"
   },
-  "homepage": "https://github.com/aleksdp/react-security#readme"
+  "homepage": "https://github.com/aleksdp/react-security-fetcher#readme"
 }
