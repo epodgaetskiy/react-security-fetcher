@@ -1,8 +1,9 @@
 import cookie from 'react-cookie'
 import {onEnter} from 'react-isomorphic-render/redux'
 
-const tokenName = 'token'
-const refreshTokenName = 'refreshToken'
+let tokenName = 'token'
+let refreshTokenName = 'refreshToken'
+let tokenPrefix = 'Bearer '
 
 export const Auth = {
     setToken(token){
@@ -47,4 +48,17 @@ export const Check = ({roles}) => (Component) =>{
             redirect('/')
         }
     })(Component)
+}
+
+export const setTokenName = (name) => {
+    tokenName = name
+}
+export const setRefreshTokenName = (name) => {
+    refreshTokenName = name
+}
+export const setTokenPrefix = (prefix) => {
+    tokenPrefix = prefix
+}
+export const getTokenPrefix = () => {
+    return tokenPrefix
 }

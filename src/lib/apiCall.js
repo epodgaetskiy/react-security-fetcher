@@ -1,11 +1,9 @@
 import {Auth} from './Auth'
 import 'isomorphic-fetch'
 import 'es6-promise'
-import '../react-isomorphic-render'
+import {getTokenPrefix} from './Auth'
 
-
-const BASE_URL = 'http://api.itboost.org:82/app_dev.php/api'
-
+let BASE_URL
 
 const Fetcher = async (url, method = 'GET', {params, type = null, base_url = BASE_URL} = {}) => {
     let headers_data = {}
@@ -42,7 +40,7 @@ const Fetcher = async (url, method = 'GET', {params, type = null, base_url = BAS
     const headers = new Headers(headers_data)
 
     if(Auth.isAuthenticated()){
-        headers.append('Authorization', `Bearer ${Auth.getToken()}`)
+        headers.append('Authorization', `${getTokenPrefix()}${Auth.getToken()}`)
     }
 
     try {
@@ -94,19 +92,34 @@ const Fetcher = async (url, method = 'GET', {params, type = null, base_url = BAS
 }
 
 export const redux = (url, key, method = 'GET', params = {}) => async (dispatch) => {
-    dispatch({
-        type: '@FETCH_DATA/REQUEST',
-        payload: {
-            key: key
-        }
-    })
     try {
+        dispatch({
+            type: '@FETCH_DATA/REQUEST',
+            payload: {
+                key: key,
+                data: {
+                    response: null,
+                    request: {
+                        url,
+                        method,
+                        options: params
+                    }
+                }
+            }
+        })
         const response = await Fetcher(url, method, params)
         dispatch({
             type: '@FETCH_DATA/SUCCESS',
             payload: {
                 key: key,
-                data: {...response.response ? response: {response: response}, request:{url, method, options: params}}
+                data: {
+                    response,
+                    request:{
+                        url,
+                        method,
+                        options: params
+                    }
+                }
             }
         })
         return response
@@ -124,3 +137,6 @@ export const redux = (url, key, method = 'GET', params = {}) => async (dispatch)
 }
 
 export const fetchData = Fetcher
+export const setBaseUrl = (url) => {
+    BASE_URL = url
+}
