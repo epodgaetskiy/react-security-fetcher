@@ -1,13 +1,12 @@
 {
   "name": "react-security-fetcher",
-  "version": "0.3.0",
+  "version": "0.3.5",
   "description": "React+Redux Authorization&Fetcher",
   "main": "lib/index.js",
-  "dependencies": {
-    "react-cookie": "^1.0.4",
-    "react-isomorphic-render": "^6.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "react-cookie": "^1.0.4",
+    "react-isomorphic-render": "^6.0.2",
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",

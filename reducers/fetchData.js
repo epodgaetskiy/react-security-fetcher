@@ -18,7 +18,8 @@ exports.default = function () {
 
     switch (action.type) {
         case '@FETCH_DATA/REQUEST':
-            return (0, _extends6.default)({}, state, (0, _defineProperty3.default)({}, action.payload.key, (0, _extends6.default)({}, action.payload.data, {
+            return (0, _extends6.default)({}, state, (0, _defineProperty3.default)({}, action.payload.key, (0, _extends6.default)({}, state[action.payload.key], {
+                _request: action.payload.data.request,
                 isFetching: true,
                 isFetched: false,
                 error: false
@@ -27,11 +28,12 @@ exports.default = function () {
             return (0, _extends6.default)({}, state, (0, _defineProperty3.default)({}, action.payload.key, (0, _extends6.default)({}, action.payload.data, {
                 isFetched: true,
                 isFetching: false,
-                error: false
+                error: false,
+                _request: undefined
             })));
         case '@FETCH_DATA/ERROR':
-            return (0, _extends6.default)({}, state, (0, _defineProperty3.default)({}, action.payload.key, (0, _extends6.default)({}, action.payload.error, {
-                error: true,
+            return (0, _extends6.default)({}, state, (0, _defineProperty3.default)({}, action.payload.key, (0, _extends6.default)({}, state[action.payload.key], {
+                error: action.payload.error,
                 isFetching: false,
                 isFetched: false
             })));
