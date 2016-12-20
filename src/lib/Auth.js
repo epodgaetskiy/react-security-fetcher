@@ -37,7 +37,7 @@ export const Check = ({roles, denyRoles, cb}) => (Component) =>{
                 let role = user.roles[i]
                 for(let i in denyRoles){
                     if(denyRoles.hasOwnProperty(i) && role==denyRoles[i]){
-                        (typeof (cb) == 'function' && cb({getState, redirect}))||redirect('/')
+                        cb ? await cb({getState, redirect}): redirect('/')
                         return
                     }
                 }
@@ -48,10 +48,10 @@ export const Check = ({roles, denyRoles, cb}) => (Component) =>{
                 }
             }
             if(!hasRole){
-                (typeof (cb) == 'function' && cb({getState, redirect}))||redirect('/')
+                cb ? await cb({getState, redirect}): redirect('/')
             }
         }else{
-            (typeof (cb) == 'function' && cb({getState, redirect}))||redirect('/')
+            cb ? await cb({getState, redirect}): redirect('/')
         }
     })(Component)
 }
