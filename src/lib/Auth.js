@@ -28,13 +28,19 @@ export const Auth = {
 }
 
 
-export const Check = ({roles}) => (Component) =>{
+export const Check = ({roles, denyRoles, cb}) => (Component) =>{
     return onEnter(async ({ getState }, redirect) => {
         if(Auth.isAuthenticated()){
             const {user} = getState().authentication
             let hasRole = false
             for(let i in user.roles){
                 let role = user.roles[i]
+                for(let i in denyRoles){
+                    if(denyRoles.hasOwnProperty(i) && role==denyRoles[i]){
+                        (typeof (cb) == 'function' && cb(getState, redirect))||redirect('/')
+                        return
+                    }
+                }
                 for(let i in roles){
                     if(roles.hasOwnProperty(i) && role == roles[i]){
                         hasRole = true
@@ -42,10 +48,10 @@ export const Check = ({roles}) => (Component) =>{
                 }
             }
             if(!hasRole){
-                redirect('/')
+                (typeof (cb) == 'function' && cb(getState, redirect))||redirect('/')
             }
         }else{
-            redirect('/')
+            (typeof (cb) == 'function' && cb(getState, redirect))||redirect('/')
         }
     })(Component)
 }
