@@ -28,10 +28,10 @@ export const Auth = {
 }
 
 
-export const Check = ({roles, denyRoles, cb}) => (Component) =>{
+export const Check = ({roles = [], denyRoles = [], cb, anon = false}) => (Component) =>{
     return onEnter(async ({ getState }, redirect) => {
-        const {user} = getState().authentication
-        if(Auth.isAuthenticated() && (typeof (user) == 'object')){
+        const {authentication: {user}} = getState()
+        if(Auth.isAuthenticated() && user){
             let hasRole = false
             for(let i in user.roles){
                 let role = user.roles[i]
@@ -50,7 +50,7 @@ export const Check = ({roles, denyRoles, cb}) => (Component) =>{
             if(!hasRole){
                 cb ? await cb({getState, redirect}): redirect('/')
             }
-        }else{
+        }else if(!anon){
             cb ? await cb({getState, redirect}): redirect('/')
         }
     })(Component)
