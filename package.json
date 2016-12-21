@@ -1,6 +1,6 @@
 {
   "name": "react-security-fetcher",
-  "version": "0.3.7",
+  "version": "0.3.9",
   "description": "React+Redux Authorization&Fetcher",
   "main": "lib/index.js",
   "dependencies": {},

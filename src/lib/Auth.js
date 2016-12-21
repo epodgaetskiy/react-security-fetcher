@@ -30,8 +30,8 @@ export const Auth = {
 
 export const Check = ({roles, denyRoles, cb}) => (Component) =>{
     return onEnter(async ({ getState }, redirect) => {
-        if(Auth.isAuthenticated()){
-            const {user} = getState().authentication
+        const {user} = getState().authentication
+        if(Auth.isAuthenticated() && (typeof (user) == 'object')){
             let hasRole = false
             for(let i in user.roles){
                 let role = user.roles[i]
