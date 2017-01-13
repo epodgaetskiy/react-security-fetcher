@@ -5,12 +5,17 @@ let tokenName = 'token'
 let refreshTokenName = 'refreshToken'
 let tokenPrefix = 'Bearer '
 
+let expiresRefreshToken = new Date()
+expiresRefreshToken.setMonth(expiresRefreshToken.getMonth() + 2)
+let expiresToken = new Date()
+expiresToken.setMonth(expiresToken.getMonth() + 1)
+
 export const Auth = {
     setToken(token){
-        cookie.save(tokenName, token)
+        cookie.save(tokenName, token, {expires: expiresToken})
     },
     setRefreshToken(refreshToken){
-        cookie.save(refreshTokenName, refreshToken)
+        cookie.save(refreshTokenName, refreshToken, {expires: expiresRefreshToken})
     },
     getToken(){
         return cookie.load(tokenName)
